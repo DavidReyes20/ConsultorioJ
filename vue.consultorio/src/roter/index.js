@@ -3,10 +3,12 @@ import insertar from '@/components/insertar.vue';
 import conexion from '@/components/conexion.vue';
 import actualizar from '@/components/actualizar.vue';
 import loginregistro from '@/components/loginregistro.vue';
-import Profesor from '@/components/profesor.vue';
-import Recursos from '@/components/Recursos.vue';
+import profesor from '@/components/profesor.vue';
 import HomeComponent from '@/components/HomeComponent.vue';
-
+import Recursos from '@/components/Recursos.vue';
+import estudiante from '@/components/estudiante.vue';
+import administrador from '@/components/administrador.vue';
+import crudusers from '@/components/crudusers.vue';
 
 
 const routes = [
@@ -16,12 +18,19 @@ const routes = [
     name: '/HomeComponent',
     component: HomeComponent
   },
+  {
+    path: '/recursos',
+    name: '/recursos',
+    component: Recursos
+  },
 
   {
     path: '/insertar',
     name: '/insertar',
     component: insertar
   },
+  
+
   {
     path: '/login',
     name: 'loginregistro',
@@ -30,12 +39,22 @@ const routes = [
   {
     path: '/profesor',
     name: 'profesor',
-    component: Profesor
+    component: profesor
   },
   {
-    path: '/recursos',
-    name: 'recursoslegales',
-    component: Recursos
+    path: '/estudiante',
+    name: 'estudiante',
+    component: estudiante
+  },
+  {
+    path: '/administrador',
+    name: 'administrador',
+    component: administrador
+  },
+  {
+    path: '/crudusers',
+    name: 'crudusers',
+    component: crudusers
   }
 
 ];
