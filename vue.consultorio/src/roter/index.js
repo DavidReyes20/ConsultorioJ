@@ -9,6 +9,7 @@ import Recursos from '@/components/Recursos.vue';
 import estudiante from '@/components/estudiante.vue';
 import administrador from '@/components/administrador.vue';
 import crudusers from '@/components/crudusers.vue';
+import Gestion_Casos from '@/components/Gestion_Casos.vue';
 
 
 const routes = [
@@ -55,6 +56,11 @@ const routes = [
     path: '/crudusers',
     name: 'crudusers',
     component: crudusers
+  },
+  {
+    path: '/gestion_casos',
+    name: 'gestion_casos',
+    component: Gestion_Casos
   }
 
 ];

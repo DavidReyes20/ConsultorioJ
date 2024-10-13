@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from conexion import crear, get_db
-from modelo import base, Registro, RecursoLegales
+from modelo import base, Registro, RecursoLegales,GestionCasos
 from shemas import Usuario, Login
 from shemas import RecursosLegales as recursos
+from shemas import GestionCasos as casos
 import bcrypt
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -121,3 +122,49 @@ async def eliminar_recurso(id: int, db: Session = Depends(get_db)):
     db.commit()
     return recurso
     
+
+    #  --------------------------------- GESTION DE CASOS ----------------------------------------------
+@app.post('/insertar_caso', response_model=casos)
+async def registrar_Recurso(casos: casos, db: Session = Depends(get_db)):
+    datos = GestionCasos(**casos.dict())
+    db.add(datos)
+    db.commit()
+    db.refresh(datos)
+    return datos
+
+@app.get('/consultar_lista_casos',response_model=list[casos])
+async def Consultar_cliente(db:Session=Depends(get_db)):
+    datos_cliente=db.query(GestionCasos).all()
+    return datos_cliente
+
+@app.delete('/eliminar_casos/{id}', response_model=casos)
+async def eliminar_casos(id:str, db: Session = Depends(get_db)):
+    recurso = db.query(GestionCasos).filter(GestionCasos.numero_caso == id).first()
+    if not recurso:
+        raise HTTPException(status_code=404, detail="Caso no encontrado")
+    
+    db.delete(recurso)
+    db.commit()
+    return recurso
+
+
+from sqlalchemy import or_
+
+@app.get('/caso_filtter/{documento}', response_model=list[casos])
+async def consultar_cliente(documento: str, db: Session = Depends(get_db)):
+    # Comparamos primero con documento_usuario y luego con tipo_caso, usando OR
+    datos_cliente = db.query(GestionCasos).filter(
+        or_(
+            GestionCasos.documento_usuario == documento,
+            GestionCasos.tipo_caso == documento
+        )
+    ).all()  # Usamos .all() para obtener todos los registros que cumplan la condición
+
+    if not datos_cliente:  # Si no hay datos, devolvemos un 404
+        raise HTTPException(status_code=404, detail="dato no encontrado")
+    
+    return datos_cliente  # Retornamos
+
+
+
+

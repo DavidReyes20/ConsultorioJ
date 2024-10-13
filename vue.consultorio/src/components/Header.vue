@@ -8,8 +8,7 @@
             <nav>
                 <ul class="nav-list">
                     <li><a><router-link to="/home">Inicio</router-link></a></li>
-                    <li><a href="#">Quiénes Somos</a></li>
-                    <li><a href="#">Servicios</a></li>
+                    <li><a><router-link to="/gestion_casos">Casos</router-link></a></li>
                     <li><a><router-link to="/recursos">Recursos</router-link></a></li>
                     <li><a><router-link to="/crudusers">Admin users</router-link></a></li>
                     <li><a href="https://www.unicolmayor.edu.co/">Universidad</a></li>

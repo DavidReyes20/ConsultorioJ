@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Column
+from sqlalchemy import String, Integer, Column, ForeignKey
 from conexion import base
 
 class Registro(base):
@@ -22,3 +22,17 @@ class RecursoLegales(base):
     tipo = Column(String(20), nullable=True)
 
 
+class GestionCasos(base):
+    __tablename__ = "gestion_casos"
+    
+    numero_caso = Column(String(40), primary_key=True)
+    nombre_usuario = Column(String(60), nullable=False)
+    apellido_usuario = Column(String(60), nullable=False)
+    documento_usuario = Column(String(60), nullable=False)
+    tipo_caso = Column(String(60), nullable=False)
+    estado_caso = Column(String(60), nullable=False)
+    link_carpeta = Column(String(60), nullable=False)
+    
+    id_persona_abre_caso = Column(Integer, ForeignKey('usuarios.documento'), primary_key=True)
+    
+    
