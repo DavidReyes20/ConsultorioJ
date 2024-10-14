@@ -19,6 +19,7 @@ class RecursosLegales(BaseModel):
     nombre_recurso: str
     descripcion: str
     tipo: str
+    Url : str
 
 class GestionCasos(BaseModel):
     numero_caso: str

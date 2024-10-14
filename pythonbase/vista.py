@@ -121,6 +121,26 @@ async def eliminar_recurso(id: int, db: Session = Depends(get_db)):
     db.delete(recurso)
     db.commit()
     return recurso
+
+
+@app.put('/actualizarRecurso/{id}', response_model=recursos)
+async def actualizar_recurso(id: int, recur: recursos, db: Session = Depends(get_db)):
+    recurso = db.query(RecursoLegales).filter(RecursoLegales.id_documento == id).first()
+
+    if not recurso:
+        raise HTTPException(status_code=404, detail="Recurso no encontrado")
+
+
+    recurso.nombre_recurso = recur.nombre_recurso
+    recurso.descripcion = recur.descripcion
+    recurso.tipo = recur.tipo
+    recurso.Url = recur.Url
+
+    db.commit()
+    db.refresh(recurso)
+
+    return recurso 
+
     
 
     #  --------------------------------- GESTION DE CASOS ----------------------------------------------

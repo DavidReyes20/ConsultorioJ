@@ -20,6 +20,7 @@ class RecursoLegales(base):
     nombre_recurso = Column(String(60), nullable=False)
     descripcion = Column(String(100), nullable=True)
     tipo = Column(String(20), nullable=True)
+    Url = Column(String(200),nullable=True)
 
 
 class GestionCasos(base):
